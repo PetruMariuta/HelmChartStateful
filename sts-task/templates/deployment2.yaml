@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-deployment2
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name}} 
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name}}  # Label applied to pods
+    spec:
+      containers:
+        - name: apache-task5
+          image: petrumariuta/apache-task5:latest
+          ports:
+            - containerPort: 80
+          command: ["/bin/bash"]
+          args: ["apache2 -D FOREGROUND"]
+
+          volumeMounts:
+            - name: {{.Values.volumeMounts}}
+              mountPath: {{.Values.mountPath}}
+      volumes:
+        - name: {{.Values.volumes}}

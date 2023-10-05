@@ -29,13 +29,13 @@ spec:
             sleep 10000;
             done
         volumeMounts:
-        - name: pv-5oct
-          mountPath: /test/tester
-#  volumeClaimTemplates:
-#  - metadata:
-#      name: www
-#    spec:
-#      accessModes: [ "ReadWriteOnce" ]
-#      resources:
-#        requests:
-#          storage: 1Gi
+        - name: pv-5oct-sts2
+          mountPath: /test/tester1
+  volumeClaimTemplates:
+  - metadata:
+      name: pv-5oct-sts2
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      resources:
+        requests:
+          storage: 1Gi

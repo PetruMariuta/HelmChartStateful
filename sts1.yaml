@@ -32,11 +32,11 @@ spec:
         volumeMounts:
         - name: pv-5oct
           mountPath: /test/tester
-#  volumeClaimTemplates:
-#  - metadata:
-#      name: pv-5oct
-#    spec:
-#      accessModes: [ "ReadWriteMany" ] # am deja pvc, so no need
-#      resources:
-#        requests:
-#          storage: 1Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: pv-5oct
+    spec:
+      accessModes: [ "ReadWriteMany" ] # am deja pvc, so no need
+      resources:
+        requests:
+          storage: 1Gi
