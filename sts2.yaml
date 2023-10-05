@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: stateful-5oct-sts2   #dc pot sa am name aici, care sa nu fie identic cu ce am mai jos
+  namespace: 5oct
+spec:
+  selector:
+    matchLabels:
+      app: stateful-5oct
+  serviceName: stateful-5oct
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stateful-5oct
+    spec:
+      containers:
+      - name: stateful-5oct
+        image: petrumariuta/stateful:latest
+        ports:
+        - containerPort: 80
+        command:
+          - /bin/sh
+          - -c 
+        args:
+          - |
+            while true; do
+            df -h >> /fisiere/file2.md
+            sleep 10000;
+            done
+        volumeMounts:
+        - name: pv-5oct
+          mountPath: /test/tester
+#  volumeClaimTemplates:
+#  - metadata:
+#      name: www
+#    spec:
+#      accessModes: [ "ReadWriteOnce" ]
+#      resources:
+#        requests:
+#          storage: 1Gi

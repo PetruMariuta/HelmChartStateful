@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: stateful-5oct
+  namespace: 5oct
+spec:
+  selector:
+    matchLabels:
+      app: stateful-5oct
+  serviceName: stateful-5oct
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stateful-5oct
+    spec:
+      containers:
+      - name: stateful-5oct
+        image: petrumariuta/stateful:latest
+        ports:
+        - containerPort: 80
+        command:
+          - /bin/sh
+          - -c 
+        args:
+          - |
+            while true; do 
+             ps -aux >> /fisiere/file1.md
+             sleep 1000;
+             done
+#          name: stateful-5oct
+        volumeMounts:
+        - name: pv-5oct
+          mountPath: /test/tester
+#  volumeClaimTemplates:
+#  - metadata:
+#      name: pv-5oct
+#    spec:
+#      accessModes: [ "ReadWriteMany" ] # am deja pvc, so no need
+#      resources:
+#        requests:
+#          storage: 1Gi
